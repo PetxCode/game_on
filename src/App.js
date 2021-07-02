@@ -1,25 +1,31 @@
-import logo from "./logo.svg";
-import "./App.css";
+import React, { useState, useEffect } from "react";
+import HeaderNav from "./component/HeaderNav";
+import Body from "./component/Body";
 
-function App() {
+const App = () => {
+  const [observeChange, setObserveChange] = useState(false);
+
+  const getPosition = () => {
+    console.log(window.scrollY);
+    if (window.scrollY >= 70) {
+      setObserveChange(true);
+    } else {
+      setObserveChange(false);
+    }
+  };
+
+  window.addEventListener("scroll", getPosition);
+
+  useEffect(() => {
+    getPosition();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React and let's Code like a pro and get jobs!
-        </a>
-      </header>
+    <div>
+      <HeaderNav clr={observeChange ? "red" : " "} />
+      <Body />
     </div>
   );
-}
+};
 
 export default App;
